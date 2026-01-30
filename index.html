@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Institute Certificate</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+/* ========== BASIC ========== */
+body{
+    margin:0;
+    padding:20px;
+    background:#e6e6e6;
+    font-family:"Segoe UI", sans-serif;
+}
+
+/* ========== LAYOUT ========== */
+.wrapper{
+    max-width:1200px;
+    margin:auto;
+    display:grid;
+    grid-template-columns:1fr 1.6fr;
+    gap:20px;
+}
+@media(max-width:900px){
+    .wrapper{grid-template-columns:1fr;}
+}
+
+/* ========== FORM ========== */
+.form-box{
+    background:#fff;
+    padding:20px;
+    border-radius:8px;
+    box-shadow:0 4px 15px rgba(0,0,0,.15);
+}
+.form-box h2{
+    margin:0 0 10px;
+    color:#0b2c4d;
+}
+.form-box label{
+    display:block;
+    margin-top:10px;
+    font-weight:600;
+}
+.form-box input{
+    width:100%;
+    padding:8px;
+    margin-top:4px;
+    border:1px solid #aaa;
+    border-radius:4px;
+}
+.form-box button{
+    margin-top:15px;
+    padding:10px;
+    width:100%;
+    background:#0b2c4d;
+    color:#fff;
+    border:none;
+    font-size:16px;
+    cursor:pointer;
+    border-radius:4px;
+}
+
+/* ========== CERTIFICATE ========== */
+.certificate{
+    background:#fff;
+    width:210mm;
+    height:297mm;
+    padding:30mm 25mm;
+    border:10px double #c9a227;
+    box-sizing:border-box;
+    display:flex;
+    flex-direction:column;
+}
+
+/* HEADER */
+.header{
+    display:flex;
+    align-items:center;
+    gap:15px;
+    border-bottom:2px solid #0b2c4d;
+    padding-bottom:10px;
+}
+.header img{
+    width:90px;
+}
+.header-text{
+    flex:1;
+    text-align:center;
+}
+.header-text h1{
+    margin:0;
+    font-size:22px;
+    color:#0b2c4d;
+    letter-spacing:1px;
+}
+.header-text p{
+    margin:2px 0;
+    font-size:13px;
+}
+
+/* BODY CENTER */
+.cert-body{
+    flex:1;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+}
+
+/* TITLE */
+.title{
+    text-align:center;
+    margin:20px 0;
+}
+.title h2{
+    font-size:30px;
+    color:#0b2c4d;
+    text-decoration:underline;
+}
+
+/* DETAILS */
+.details{
+    font-size:16px;
+    line-height:1.9;
+}
+.details span{
+    display:inline-block;
+    width:180px;
+    font-weight:600;
+}
+
+/* PARAGRAPH */
+.para{
+    margin-top:20px;
+    font-size:17px;
+    line-height:1.9;
+    text-align:justify;
+}
+
+/* SIGN */
+.sign{
+    display:flex;
+    justify-content:space-between;
+    margin-top:35px;
+}
+.sign div{
+    width:40%;
+    text-align:center;
+}
+.line{
+    border-top:1px solid #000;
+    margin-bottom:5px;
+}
+
+/* FOOTER */
+.footer{
+    margin-top:15px;
+    font-size:14px;
+}
+
+/* GRADE BOX */
+.grade-box{
+    margin-top:10px;
+    padding:10px;
+    border:1px solid #999;
+    background:#f7f7f7;
+    font-size:13px;
+    text-align:center;
+}
+
+/* PRINT */
+@page{
+    size:A4;
+    margin:0;
+}
+@media print{
+    body{background:#fff;padding:0;}
+    .form-box{display:none;}
+}
+</style>
+</head>
+
+<body>
+
+<div class="wrapper">
+
+<!-- ========== FORM ========== -->
+<div class="form-box">
+<h2>Student Details</h2>
+
+<label>Student Name</label>
+<input oninput="sname.innerText=this.value">
+
+<label>Father's Name</label>
+<input oninput="fname.innerText=this.value">
+
+<label>Course Name</label>
+<input oninput="course.innerText=this.value">
+
+<label>Course Duration</label>
+<input oninput="duration.innerText=this.value">
+
+<label>Grade</label>
+<input oninput="grade.innerText=this.value">
+
+<label>Date of Issue</label>
+<input oninput="issue.innerText=this.value">
+
+<label>Place of Issue</label>
+<input oninput="place.innerText=this.value">
+
+<button onclick="window.print()">Download PDF</button>
+</div>
+
+<!-- ========== CERTIFICATE ========== -->
+<div class="certificate">
+
+<!-- HEADER -->
+<div class="header">
+    <img src="https://lh3.googleusercontent.com/p/AF1QipPStLJUTq8Q83tTzoQ_fFNQBbP6XQK1vAu1Yzew=s1360-w1360-h1020-rw" alt="Institute Logo">
+    <div class="header-text">
+        <h1>DIGITAL FUTURE INFORMATION TECHNOLOGY (PVT LTD)</h1>
+        <p>Computer Education & Skill Development Centre</p>
+        <p>Kakdwip,Lot No 8, Golparl,South 24 PGS,West Bengal - 743347 | Call :+91 9907992247 / 7699050769 | Email:dfit@gmail.com</p>
+    </div>
+</div>
+
+<div class="cert-body">
+
+<div class="title">
+    <h2>CERTIFICATE OF COMPLETION</h2>
+</div>
+
+<div class="details">
+    <div><span>Student Name</span>: <b id="sname">STUDENT NAME</b></div>
+    <div><span>Father's Name</span>: <b id="fname">FATHER NAME</b></div>
+    <div><span>Course</span>: <b id="course">COURSE NAME</b></div>
+    <div><span>Duration</span>: <b id="duration">DURATION</b></div>
+</div>
+
+<div class="para">
+    This is to certify that the above mentioned student has successfully completed
+    the course conducted by this institute and has shown satisfactory performance.
+    The student has secured Grade <b id="grade">A</b>.
+</div>
+
+<div class="sign">
+    <div>
+        <div class="line"></div>
+        Course Co-ordinator
+    </div>
+    <div>
+        <div class="line"></div>
+        Authorized Signatory
+    </div>
+</div>
+
+<div class="footer">
+    Date of Issue: <b id="issue">DATE</b><br>
+    Place of Issue: <b id="place">PLACE</b>
+
+    <div class="grade-box">
+        Grade A+: 90% & Above | A: 80–89% | B+: 70–79% | B: 60–69% | C: Below 60%
+    </div>
+</div>
+
+</div>
+</div>
+
+</div>
+
+</body>
+</html>
