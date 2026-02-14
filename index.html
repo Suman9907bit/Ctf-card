@@ -6,7 +6,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
-/* ========== BASIC ========== */
 body{
     margin:0;
     padding:20px;
@@ -14,7 +13,6 @@ body{
     font-family:"Segoe UI", sans-serif;
 }
 
-/* ========== LAYOUT ========== */
 .wrapper{
     max-width:1200px;
     margin:auto;
@@ -26,7 +24,6 @@ body{
     .wrapper{grid-template-columns:1fr;}
 }
 
-/* ========== FORM ========== */
 .form-box{
     background:#fff;
     padding:20px;
@@ -50,7 +47,7 @@ body{
     border-radius:4px;
 }
 .form-box button{
-    margin-top:15px;
+    margin-top:10px;
     padding:10px;
     width:100%;
     background:#0b2c4d;
@@ -61,8 +58,8 @@ body{
     border-radius:4px;
 }
 
-/* ========== CERTIFICATE ========== */
 .certificate{
+    position:relative;
     background:#fff;
     width:210mm;
     height:297mm;
@@ -73,7 +70,6 @@ body{
     flex-direction:column;
 }
 
-/* HEADER */
 .header{
     display:flex;
     align-items:center;
@@ -99,7 +95,6 @@ body{
     font-size:13px;
 }
 
-/* BODY CENTER */
 .cert-body{
     flex:1;
     display:flex;
@@ -107,7 +102,6 @@ body{
     justify-content:center;
 }
 
-/* TITLE */
 .title{
     text-align:center;
     margin:20px 0;
@@ -118,7 +112,6 @@ body{
     text-decoration:underline;
 }
 
-/* DETAILS */
 .details{
     font-size:16px;
     line-height:1.9;
@@ -129,7 +122,6 @@ body{
     font-weight:600;
 }
 
-/* PARAGRAPH */
 .para{
     margin-top:20px;
     font-size:17px;
@@ -137,7 +129,6 @@ body{
     text-align:justify;
 }
 
-/* SIGN */
 .sign{
     display:flex;
     justify-content:space-between;
@@ -152,13 +143,11 @@ body{
     margin-bottom:5px;
 }
 
-/* FOOTER */
 .footer{
     margin-top:15px;
     font-size:14px;
 }
 
-/* GRADE BOX */
 .grade-box{
     margin-top:10px;
     padding:10px;
@@ -168,7 +157,17 @@ body{
     text-align:center;
 }
 
-/* PRINT */
+.qr-box{
+    position:absolute;
+    right:330px;
+    bottom:120px;
+    text-align:center;
+}
+.qr-box p{
+    font-size:12px;
+    margin-top:5px;
+}
+
 @page{
     size:A4;
     margin:0;
@@ -177,6 +176,29 @@ body{
     body{background:#fff;padding:0;}
     .form-box{display:none;}
 }
+
+
+
+
+
+
+.certificate{
+    position:relative;
+    background:#fff;
+    width:210mm;
+    height:297mm;
+    padding:30mm 25mm;
+    border:10px double #c9a227;
+    box-sizing:border-box;
+    display:flex;
+    flex-direction:column;
+
+    background-image:url('https://i.pinimg.com/736x/73/6a/67/736a675ba62c3b240025275765404fc5.jpg'); /* এখানে তোমার image */
+    background-size:cover;
+    background-position:center;
+    background-repeat:no-repeat;
+}
+
 </style>
 </head>
 
@@ -184,9 +206,11 @@ body{
 
 <div class="wrapper">
 
-<!-- ========== FORM ========== -->
 <div class="form-box">
 <h2>Student Details</h2>
+
+<label>Certificate No</label>
+<input oninput="certno.innerText=this.value">
 
 <label>Student Name</label>
 <input oninput="sname.innerText=this.value">
@@ -209,15 +233,14 @@ body{
 <label>Place of Issue</label>
 <input oninput="place.innerText=this.value">
 
+<button onclick="generateQR()">Generate QR Code</button>
 <button onclick="window.print()">Download PDF</button>
 </div>
 
-<!-- ========== CERTIFICATE ========== -->
 <div class="certificate">
 
-<!-- HEADER -->
 <div class="header">
-    <img src="https://lh3.googleusercontent.com/p/AF1QipPStLJUTq8Q83tTzoQ_fFNQBbP6XQK1vAu1Yzew=s1360-w1360-h1020-rw" alt="Institute Logo">
+    <img src="https://lh3.googleusercontent.com/p/AF1QipPStLJUTq8Q83tTzoQ_fFNQBbP6XQK1vAu1Yzew=s1360-w1360-h1020-rw">
     <div class="header-text">
         <h1>DIGITAL FUTURE INFORMATION TECHNOLOGY (PVT LTD)</h1>
         <p>Computer Education & Skill Development Centre</p>
@@ -232,6 +255,7 @@ body{
 </div>
 
 <div class="details">
+    <div><span>Certificate No</span>: <b id="certno">CERT-001</b></div>
     <div><span>Student Name</span>: <b id="sname">STUDENT NAME</b></div>
     <div><span>Father's Name</span>: <b id="fname">FATHER NAME</b></div>
     <div><span>Course</span>: <b id="course">COURSE NAME</b></div>
@@ -263,11 +287,66 @@ body{
         Grade A+: 90% & Above | A: 80–89% | B+: 70–79% | B: 60–69% | C: Below 60%
     </div>
 </div>
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+<div class="qr-box">
+    <div id="qrcode"></div>
+    <p>Scan to Verify</p>
+</div>
 
 </div>
 </div>
 
 </div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+
+<script>
+function generateQR(){
+
+    var data =
+"AUTHORISED CERTIFICATE\n\n"+
+"Student Name: " + sname.innerText + "\n"+
+"Certificate No: " + certno.innerText + "\n"+
+"Grade: " + grade.innerText;
+
+    document.getElementById("qrcode").innerHTML = "";
+
+    new QRCode(document.getElementById("qrcode"), {
+        text: data,
+        width: 110,
+        height: 110
+    });
+}
+</script>
+
+
+<script>
+(function(){
+
+    var correctCode = "DFIT2026";   // এখানে তোমার Security Code দাও
+
+    var userCode = prompt("Enter Security Code to Access Certificate Page");
+
+    if(userCode !== correctCode){
+        document.body.innerHTML = `
+            <div style="
+                height:100vh;
+                display:flex;
+                justify-content:center;
+                align-items:center;
+                flex-direction:column;
+                font-family:Segoe UI;
+                background:#f4f4f4;">
+                
+                <h2 style="color:red;">Access Denied</h2>
+                <p>Invalid Security Code</p>
+            </div>
+        `;
+    }
+
+})();
+</script>
+
 
 </body>
 </html>
