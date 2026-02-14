@@ -34,11 +34,13 @@ body{
     margin:0 0 10px;
     color:#0b2c4d;
 }
+
 .form-box label{
     display:block;
     margin-top:10px;
     font-weight:600;
 }
+
 .form-box input{
     width:100%;
     padding:8px;
@@ -46,6 +48,7 @@ body{
     border:1px solid #aaa;
     border-radius:4px;
 }
+
 .form-box button{
     margin-top:10px;
     padding:10px;
@@ -58,16 +61,43 @@ body{
     border-radius:4px;
 }
 
+/* ================= CERTIFICATE ================= */
+
 .certificate{
     position:relative;
-    background:#fff;
     width:210mm;
     height:297mm;
     padding:30mm 25mm;
-    border:10px double #c9a227;
     box-sizing:border-box;
     display:flex;
     flex-direction:column;
+    border:12px double #c9a227;
+
+    background-image:url('https://i.pinimg.com/736x/73/6a/67/736a675ba62c3b240025275765404fc5.jpg');
+    background-size:cover;
+    background-position:center;
+    background-repeat:no-repeat;
+}
+
+/* Watermark */
+.watermark{
+    position:absolute;
+    top:50%;
+    left:50%;
+    transform:translate(-50%, -50%);
+    opacity:0.07;
+    z-index:0;
+}
+
+.watermark img{
+    width:450px;
+}
+
+/* Content above watermark */
+.header,
+.cert-body{
+    position:relative;
+    z-index:2;
 }
 
 .header{
@@ -80,6 +110,7 @@ body{
 .header img{
     width:90px;
 }
+
 .header-text{
     flex:1;
     text-align:center;
@@ -88,7 +119,6 @@ body{
     margin:0;
     font-size:22px;
     color:#0b2c4d;
-    letter-spacing:1px;
 }
 .header-text p{
     margin:2px 0;
@@ -159,7 +189,7 @@ body{
 
 .qr-box{
     position:absolute;
-    right:330px;
+    right:300px;
     bottom:120px;
     text-align:center;
 }
@@ -168,37 +198,22 @@ body{
     margin-top:5px;
 }
 
+
+/* PRINT SETTINGS */
 @page{
     size:A4;
     margin:0;
 }
+
 @media print{
-    body{background:#fff;padding:0;}
-    .form-box{display:none;}
+    body{
+        background:#fff;
+        padding:0;
+    }
+    .form-box{
+        display:none;
+    }
 }
-
-
-
-
-
-
-.certificate{
-    position:relative;
-    background:#fff;
-    width:210mm;
-    height:297mm;
-    padding:30mm 25mm;
-    border:10px double #c9a227;
-    box-sizing:border-box;
-    display:flex;
-    flex-direction:column;
-
-    background-image:url('https://i.pinimg.com/736x/73/6a/67/736a675ba62c3b240025275765404fc5.jpg'); /* এখানে তোমার image */
-    background-size:cover;
-    background-position:center;
-    background-repeat:no-repeat;
-}
-
 </style>
 </head>
 
@@ -239,12 +254,17 @@ body{
 
 <div class="certificate">
 
+<!-- Watermark -->
+<div class="watermark">
+    <img src="https://lh3.googleusercontent.com/p/AF1QipPStLJUTq8Q83tTzoQ_fFNQBbP6XQK1vAu1Yzew=s680-w680-h510-rw">
+</div>
+
 <div class="header">
-    <img src="https://lh3.googleusercontent.com/p/AF1QipPStLJUTq8Q83tTzoQ_fFNQBbP6XQK1vAu1Yzew=s1360-w1360-h1020-rw">
+    <img src="https://lh3.googleusercontent.com/p/AF1QipMWBKH-2GigRZ_OYEcaRzOF_2KI-Zpk-ApVth6w=s680-w680-h510-rw">
     <div class="header-text">
         <h1>DIGITAL FUTURE INFORMATION TECHNOLOGY (PVT LTD)</h1>
         <p>Computer Education & Skill Development Centre</p>
-        <p>Kakdwip,Lot No 8, Golparl,South 24 PGS,West Bengal - 743347 | Call :+91 9907992247 / 7699050769 | Email:dfit@gmail.com</p>
+        <p>Kakdwip, South 24 PGS, West Bengal</p>
     </div>
 </div>
 
@@ -263,9 +283,9 @@ body{
 </div>
 
 <div class="para">
-    This is to certify that the above mentioned student has successfully completed
-    the course conducted by this institute and has shown satisfactory performance.
-    The student has secured Grade <b id="grade">A</b>.
+This is to certify that the above mentioned student has successfully completed
+the course conducted by this institute and has shown satisfactory performance.
+The student has secured Grade <b id="grade">A</b>.
 </div>
 
 <div class="sign">
@@ -302,7 +322,6 @@ body{
 
 <script>
 function generateQR(){
-
     var data =
 "AUTHORISED CERTIFICATE\n\n"+
 "Student Name: " + sname.innerText + "\n"+
@@ -318,35 +337,6 @@ function generateQR(){
     });
 }
 </script>
-
-
-<script>
-(function(){
-
-    var correctCode = "DFIT2026";   // এখানে তোমার Security Code দাও
-
-    var userCode = prompt("Enter Security Code to Access Certificate Page");
-
-    if(userCode !== correctCode){
-        document.body.innerHTML = `
-            <div style="
-                height:100vh;
-                display:flex;
-                justify-content:center;
-                align-items:center;
-                flex-direction:column;
-                font-family:Segoe UI;
-                background:#f4f4f4;">
-                
-                <h2 style="color:red;">Access Denied</h2>
-                <p>Invalid Security Code</p>
-            </div>
-        `;
-    }
-
-})();
-</script>
-
 
 </body>
 </html>
